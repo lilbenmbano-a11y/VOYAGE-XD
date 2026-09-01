@@ -1,7 +1,7 @@
 {
-  "name": "scotty-bot-v6",
+  "name": "voyage-md",
   "version": "6.0.0",
-  "description": "SCOTTY BOT - Baileys WhatsApp bot for Pterodactyl",
+  "description": "VOYAGE-MD - Baileys WhatsApp bot for Pterodactyl",
   "type": "module",
   "main": "index.js",
   "scripts": {
