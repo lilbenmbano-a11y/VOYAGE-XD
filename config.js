@@ -2,9 +2,9 @@ import 'dotenv/config'
 
 export const config = {
   ownerNumber: process.env.OWNER_NUMBER || '263788114185',
-  ownerName: process.env.OWNER_NAME || 'SCOTTY',
-  botName: process.env.BOT_NAME || 'SCOTTY BOT',
-  prefix: process.env.PREFIX || '.',
+  ownerName: process.env.OWNER_NAME || 'BEN MAPS / LORD VOYAGE',
+  botName: process.env.BOT_NAME || 'VOYAGE-MD',
+  prefix: process.env.PREFIX || '/',
   mode: process.env.MODE || 'public',
   pairingNumber: (process.env.PAIRING_NUMBER || '').replace(/\D/g, ''),
   api: process.env.DREX_API || 'https://api.drextrash.online',
