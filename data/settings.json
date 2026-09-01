@@ -1,0 +1,38 @@
+{
+  "botName": "SCOTTY BOT",
+  "ownerName": "SCOTTY",
+  "prefix": ".",
+  "mode": "public",
+  "autoRead": false,
+  "autoTyping": false,
+  "autoRecording": false,
+  "autoReply": {
+    "dm": false,
+    "grp": false
+  },
+  "antiLink": false,
+  "antiDelete": false,
+  "antiViewOnce": false,
+  "autoStatus": false,
+  "online": true,
+  "welcome": false,
+  "goodbye": false,
+  "welcomeText": "\ud83d\udc4b Welcome to the group, {users}!",
+  "goodbyeText": "\ud83d\udc4b Goodbye {users}!",
+  "antiStatus": false,
+  "autoReact": false,
+  "antiCall": false,
+  "antiCallMsg": "\ud83d\udeab Calls are not accepted. Please send a message.",
+  "adminAction": false,
+  "mentionReply": false,
+  "sudo": [],
+  "reactEmojis": [
+    "\u2764\ufe0f",
+    "\ud83d\udd25",
+    "\ud83d\ude02",
+    "\ud83d\udc4d"
+  ],
+  "ownerEmojis": "\ud83d\udc51\u26a1",
+  "stickerName": "SCOTTY BOT",
+  "description": "Built \u2022 Managed \u2022 Secured"
+}
