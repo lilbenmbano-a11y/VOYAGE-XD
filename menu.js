@@ -1,7 +1,7 @@
-export function menu(prefix='.') {
-return `╭━━━〔 ⚡ SCOTTY CORE V6.0.0 〕━━━╮
+export function menu(prefix='/') {
+return `╭━━━〔 ⚡ VOYAGE-MD V6.0.0 〕━━━╮
 ┃
-┃  👑 SCOTTY WORLD • BUILT DIFFERENT
+┃  👑 VOYAGE WORLD • BUILT DIFFERENT
 ┃
 ┃  ━━━━━━━━━━━━━━━━━━━━━
 ┃  🏠 MAIN
@@ -75,16 +75,17 @@ return `╭━━━〔 ⚡ SCOTTY CORE V6.0.0 〕━━━╮
 ┃  https://whatsapp.com/channel/0029VbCuz94EwEjpo1O0aB0q
 ┃
 ╰━━━━━━━━━━━━━━━━━━━━━━╯
-       ⚡ SCOTTY BOT`}
+       ⚡ VOYAGE-MD`
+}
 
 export const ownerCard = `╭━━━━━━━━━━━━━━━━━━━━━━╮
 ┃     👑 OWNER CARD    ┃
 ╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-        ⚡ SCOTTY
+        ⚡ BEN MAPS / LORD VOYAGE
    ─────────────────
    🏷️  FOUNDER & OWNER
-   🤖  SCOTTY BOT
+   🤖  VOYAGE-MD
    🟢  VERIFIED OWNER
 
    📞 +263 788 114 185
@@ -96,5 +97,5 @@ export const ownerCard = `╭━━━━━━━━━━━━━━━━━
 ┃ 🧠  SYSTEM CONTROL   ┃
 ╰━━━━━━━━━━━━━━━━━━━━━━╯
 
-        ✨ SCOTTY CORE
+        ✨ VOYAGE-MD CORE
    ── Built • Managed • Secured ──`
