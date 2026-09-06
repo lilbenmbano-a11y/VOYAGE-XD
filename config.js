@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 export const config = {
-  ownerNumber: process.env.OWNER_NUMBER || '263788114185',
+  ownerNumber: process.env.OWNER_NUMBER || '263716454559',
   ownerName: process.env.OWNER_NAME || 'BEN MAPS / LORD VOYAGE',
   botName: process.env.BOT_NAME || 'VOYAGE-MD',
   prefix: process.env.PREFIX || '/',
