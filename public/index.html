@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>SPIDER VOYAGE — Command Center</title>
+<style>
+/* ─── CORE TOKENS ─── */
+:root{
+  --bg:#01040a;
+  --bg-elev:#050a14;
+  --neon:#00d4ff;
+  --neon-dim:rgba(0,212,255,.12);
+  --neon-bright:rgba(0,212,255,.35);
+  --blue:#0066ff;
+  --blue-deep:#001a33;
+  --cyan:#00f0ff;
+  --text:#c8e0f5;
+  --text-dim:#5a7a99;
+  --text-label:#3a6a8a;
+  --border:rgba(0,212,255,.18);
+  --border-bright:rgba(0,212,255,.45);
+  --glow:0 0 12px rgba(0,212,255,.25),0 0 40px rgba(0,102,255,.08);
+  --glow-strong:0 0 20px rgba(0,212,255,.4),0 0 60px rgba(0,102,255,.15);
+  --font-main:'Segoe UI',Roboto,system-ui,sans-serif;
+  --font-mono:'Roboto Mono','SF Mono',Consolas,monospace;
+}
+
+/* ─── RESET & BASE ─── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-main);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* ─── BACKGROUND LAYERS ─── */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(0,102,255,.15),transparent 50%),
+    radial-gradient(circle at 80% 100%,rgba(0,212,255,.08),transparent 40%),
+    radial-gradient(circle at 50% 50%,rgba(0,60,120,.05),transparent 70%);
+  z-index:-3;
+  pointer-events:none;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='%2300d4ff' stroke-opacity='0.04' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:60px 60px;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.6;
+}
+.scanlines{
+  position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,.15) 2px,rgba(0,212,255,.15) 4px);
+}
+
+/* ─── SPIDER WEB DECORATION ─── */
+.web
