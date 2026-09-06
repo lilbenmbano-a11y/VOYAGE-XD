@@ -5,70 +5,141 @@ return `╭━━━〔 ⚡ VOYAGE-MD V6.0.0 〕━━━╮
 ┃
 ┃  ━━━━━━━━━━━━━━━━━━━━━
 ┃  🏠 MAIN
-┃  ${prefix}menu  ${prefix}ping  ${prefix}alive
-┃  ${prefix}owner  ${prefix}status  ${prefix}getdp
-┃  ${prefix}botdp  ${prefix}ik  ${prefix}pair
-┃  ${prefix}mysession  ${prefix}logout
-┃  ${prefix}vv  ${prefix}vw  ${prefix}vw2  ${prefix}vw3
-┃  ${prefix}delete  ${prefix}forward  ${prefix}leave
-┃  ${prefix}hidetag  ${prefix}block  ${prefix}unblock
-┃  ${prefix}follow  ${prefix}unfollow  ${prefix}fullpp
+┃  ✦ ${prefix}menu
+┃  ✦ ${prefix}ping
+┃  ✦ ${prefix}alive
+┃  ✦ ${prefix}owner
+┃  ✦ ${prefix}status
+┃  ✦ ${prefix}ik
+┃  ✦ ${prefix}pair
+┃  ✦ ${prefix}mysession
+┃  ✦ ${prefix}sessions
+┃  ✦ ${prefix}logout
+┃  ✦ ${prefix}getdp
+┃  ✦ ${prefix}botdp
+┃  ✦ ${prefix}vv /vw /vw2 /vw3
+┃  ✦ ${prefix}delete /del
+┃  ✦ ${prefix}forward
+┃  ✦ ${prefix}leave /out
+┃  ✦ ${prefix}hidetag /tag
+┃  ✦ ${prefix}block
+┃  ✦ ${prefix}unblock
+┃  ✦ ${prefix}follow
+┃  ✦ ${prefix}unfollow
+┃  ✦ ${prefix}fullpp /setppall
 ┃
 ┃  ━━━━━━━━━━━━━━━━━━━━━
 ┃  ⚙️ SETTINGS
-┃  ${prefix}sudo  ${prefix}delsudo  ${prefix}listsudo
-┃  ${prefix}statusemoji  ${prefix}statuslike  ${prefix}botdp
-┃  ${prefix}welcome  ${prefix}goodbye
-┃  ${prefix}setwelcome  ${prefix}setgoodbye
-┃  ${prefix}autoread  ${prefix}antilink  ${prefix}antistatus
-┃  ${prefix}antidelete  ${prefix}recording  ${prefix}statusview
-┃  ${prefix}autoreact  ${prefix}anticall  ${prefix}anticallmsg
-┃  ${prefix}adminaction  ${prefix}autotyping  ${prefix}online
-┃  ${prefix}mode  ${prefix}prefix  ${prefix}botname
-┃  ${prefix}ownername  ${prefix}ownernumber  ${prefix}description
-┃  ${prefix}stickername  ${prefix}delpath  ${prefix}reactemojis
-┃  ${prefix}owneremojis  ${prefix}mentionreply  ${prefix}settings
+┃  ✦ ${prefix}settings
+┃  ✦ ${prefix}prefix /setprefix
+┃  ✦ ${prefix}botname /setname
+┃  ✦ ${prefix}ownername
+┃  ✦ ${prefix}ownernumber
+┃  ✦ ${prefix}description
+┃  ✦ ${prefix}stickername
+┃  ✦ ${prefix}delpath
+┃  ✦ ${prefix}mode
+┃  ✦ ${prefix}online /setonline
+┃  ✦ ${prefix}autoread
+┃  ✦ ${prefix}autotyping
+┃  ✦ ${prefix}recording /autorecording
+┃  ✦ ${prefix}mentionreply
+┃  ✦ ${prefix}reactemojis
+┃  ✦ ${prefix}owneremojis
+┃  ✦ ${prefix}checkupdate
+┃  ✦ ${prefix}update
+┃  ✦ ${prefix}sudo
+┃  ✦ ${prefix}delsudo
+┃  ✦ ${prefix}listsudo
 ┃
 ┃  ━━━━━━━━━━━━━━━━━━━━━
-┃  👥 GROUP
-┃  ${prefix}del  ${prefix}mute  ${prefix}unmute  ${prefix}tagall
-┃  ${prefix}kick  ${prefix}promote  ${prefix}demote  ${prefix}gcpp
-┃  ${prefix}revoke  ${prefix}link  ${prefix}ginfo
-┃  ${prefix}updategdesc  ${prefix}updategname  ${prefix}poll
-┃  ${prefix}out  ${prefix}newgc  ${prefix}end  ${prefix}join
-┃  ${prefix}invite  ${prefix}tag  ${prefix}acceptall
-┃  ${prefix}rejectall  ${prefix}requests  ${prefix}accept
-┃  ${prefix}reject  ${prefix}add  ${prefix}gcstatus2
-┃  ${prefix}gcstatus  ${prefix}everyone  ${prefix}chreact
+┃  🖼️ MEDIA CENTER
+┃  ✦ ${prefix}fb <url>
+┃  ✦ ${prefix}tiktok <url>
+┃  ✦ ${prefix}gimage <query>
+┃  ✦ ${prefix}statusview
+┃  ✦ ${prefix}statusemoji /statuslike
+┃  ✦ ${prefix}chreact
 ┃
 ┃  ━━━━━━━━━━━━━━━━━━━━━
-┃  🎵 DOWNLOADER
-┃  ${prefix}play <song>
-┃  ${prefix}soundcloud <song>
-┃  ${prefix}fb <url>
-┃  ${prefix}tiktok <url>
+┃  🎧 AUDIO LAB
+┃  ✦ ${prefix}play <song>
+┃  ✦ ${prefix}ytplay <song>
+┃  ✦ ${prefix}soundcloud <song>
 ┃
-┃  🔎 SEARCH
-┃  ${prefix}define <word>
-┃  ${prefix}yts <query>
-┃  ${prefix}gimage <query>
+┃  ━━━━━━━━━━━━━━━━━━━━━
+┃  🧠 INTELLIGENCE CORE
+┃  ✦ ${prefix}ai <question>
+┃  ✦ ${prefix}autoreply dm/grp on/off
+┃  ✦ ${prefix}define <word>
+┃  ✦ ${prefix}yts <query>
+┃  ✦ ${prefix}weather <city>
+┃  ✦ ${prefix}getbio
 ┃
-┃  🤖 AI
-┃  ${prefix}ai <question>
-┃  ${prefix}autoreply dm on/off
-┃  ${prefix}autoreply grp on/off
+┃  ━━━━━━━━━━━━━━━━━━━━━
+┃  👥 GROUP MANAGEMENT
+┃  ✦ ${prefix}tagall /everyone
+┃  ✦ ${prefix}kick
+┃  ✦ ${prefix}promote
+┃  ✦ ${prefix}demote
+┃  ✦ ${prefix}add
+┃  ✦ ${prefix}mute
+┃  ✦ ${prefix}unmute
+┃  ✦ ${prefix}link
+┃  ✦ ${prefix}revoke
+┃  ✦ ${prefix}ginfo
+┃  ✦ ${prefix}gcpp
+┃  ✦ ${prefix}updategname
+┃  ✦ ${prefix}updategdesc
+┃  ✦ ${prefix}poll
+┃  ✦ ${prefix}newgc
+┃  ✦ ${prefix}join
+┃  ✦ ${prefix}invite
+┃  ✦ ${prefix}requests
+┃  ✦ ${prefix}acceptall
+┃  ✦ ${prefix}rejectall
+┃  ✦ ${prefix}accept
+┃  ✦ ${prefix}reject
+┃  ✦ ${prefix}gcstatus
+┃  ✦ ${prefix}gcstatus2
+┃  ✦ ${prefix}end
 ┃
-┃  🎨 FUN / TOOLS
-┃  ${prefix}txt <text>
-┃  ${prefix}weather <city>
-┃  ${prefix}smile  ${prefix}blush  ${prefix}kiss
-┃  ${prefix}animegirl4  ${prefix}animegirl5  ${prefix}dog
-┃  ${prefix}effects <effect>
+┃  ━━━━━━━━━━━━━━━━━━━━━
+┃  🛡️ SECURITY & AUTOMATION
+┃  ✦ ${prefix}antilink
+┃  ✦ ${prefix}antidelete
+┃  ✦ ${prefix}antiviewonce
+┃  ✦ ${prefix}antistatus
+┃  ✦ ${prefix}anticall
+┃  ✦ ${prefix}anticallmsg
+┃  ✦ ${prefix}adminaction
+┃  ✦ ${prefix}autoreact
+┃  ✦ ${prefix}welcome
+┃  ✦ ${prefix}goodbye
+┃  ✦ ${prefix}setwelcome
+┃  ✦ ${prefix}setgoodbye
 ┃
-┃  🔐 PRIVACY / PROFILE
-┃  ${prefix}privacy  ${prefix}blocklist  ${prefix}getbio
-┃  ${prefix}setppall  ${prefix}setonline  ${prefix}setname
-┃  ${prefix}updatebio  ${prefix}groupsprivacy  ${prefix}getprivacy
+┃  ━━━━━━━━━━━━━━━━━━━━━
+┃  🎮 FUN & GAMES
+┃  ✦ ${prefix}smile
+┃  ✦ ${prefix}blush
+┃  ✦ ${prefix}kiss
+┃  ✦ ${prefix}animegirl4
+┃  ✦ ${prefix}animegirl5
+┃  ✦ ${prefix}dog
+┃
+┃  ━━━━━━━━━━━━━━━━━━━━━
+┃  ✨ TEXT & CREATIVE
+┃  ✦ ${prefix}txt <text>
+┃  ✦ ${prefix}effects <effect>
+┃
+┃  ━━━━━━━━━━━━━━━━━━━━━
+┃  🔧 UTILITY TOOLS
+┃  ✦ ${prefix}privacy
+┃  ✦ ${prefix}blocklist
+┃  ✦ ${prefix}updatebio
+┃  ✦ ${prefix}groupsprivacy
+┃  ✦ ${prefix}getprivacy
 ┃
 ┃  ━━━━━━━━━━━━━━━━━━━━━
 ┃  📡 CHANNEL
