@@ -34,6 +34,7 @@ import {
 import { menu, ownerCard } from './menu.js';
 import { ai, apiGet, downloader, unwrapApiMedia } from './lib/api.js';
 import { spamFilter } from './lib/antispam.js';
+import { getGitInfo, checkRemote, gitPull, restartProcess } from './lib/updater.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
@@ -381,6 +382,40 @@ async function processCommand(m) {
     sessions.delete(currentSession().id); saveSessionRegistry();
     return send(jid, { text: '✅ Your VOYAGE-MD session has been logged out. Pair again when needed.' });
   }
+
+  // ─── UPDATE SYSTEM (OWNER ONLY) ───
+  if (cmd === 'checkupdate') {
+    if (!isOwner(m.key.participant || jid)) return send(jid, { text: '❌ Owner only.' });
+    const info = getGitInfo();
+    const remote = checkRemote();
+    let txt = `╭━━━〔 🔄 UPDATE CHECK 〕━━━╮\n┃\n`;
+    if (info.ok) {
+      txt += `┃ 📌 Commit: ${info.hash}\n┃ 🌿 Branch: ${info.branch}\n┃ 📝 ${info.msg}\n┃ 👤 ${info.author}\n┃ 📅 ${info.date}\n┃\n`;
+    } else {
+      txt += `┃ ⚠️ Git info unavailable\n┃\n`;
+    }
+    if (remote.ok) {
+      if (remote.behind) txt += `┃ 🔴 ${remote.count} update(s) behind\n┃ 📥 Run ${getPrefix()}update to pull\n`;
+      else txt += `┃ 🟢 Already up to date\n`;
+    } else {
+      txt += `┃ ⚠️ Remote check failed\n┃ ${remote.error}\n`;
+    }
+    txt += `┃\n╰━━━━━━━━━━━━━━━━━━━━━━╯`;
+    return send(jid, { text: txt });
+  }
+
+  if (cmd === 'update') {
+    if (!isOwner(m.key.participant || jid)) return send(jid, { text: '❌ Owner only.' });
+    await send(jid, { text: '🔄 *Updating VOYAGE-MD...*\n⬇️ Pulling latest code from origin...' });
+    const result = gitPull();
+    if (!result.ok) {
+      return send(jid, { text: `❌ *Update Failed*\n\n\`\`\`\n${result.error}\n\`\`\`` });
+    }
+    await send(jid, { text: `✅ *Update Successful*\n\n\`\`\`\n${result.output}\n\`\`\`\n\n🔄 Restarting now... All sessions will reconnect automatically.` });
+    setTimeout(() => restartProcess(), 2000);
+    return;
+  }
+
   if ((settings.mode || config.mode) === 'private' && !isPrivileged(m.key.participant || jid)) return;
 
   if (settings.autoTyping) await presence(jid, 'composing');
