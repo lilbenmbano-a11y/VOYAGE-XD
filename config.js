@@ -15,4 +15,4 @@ export const config = {
   settingsFile: './data/settings.json',
   deletedFile: './data/deleted.json',
   channel: 'https://whatsapp.com/channel/0029VbCuz94EwEjpo1O0aB0q'
-}
+} 
