@@ -15,6 +15,7 @@ import { config } from './config.js'
 import { ensureStorage, readJSON, writeJSON, loadSettings, saveSettings } from './lib/storage.js'
 import { extractText, isGroup, normalizeNumber, unwrapMessageContent, mediaType, extensionFor, formatUptime, getQuotedMessage, getTargetJid, hasUrl, mentionJid } from './lib/utils.js'
 import { ai, apiGet, downloader, unwrapApiMedia } from './lib/api.js'
+import { spamFilter } from './lib/antispam.js'
 import { menu, ownerCard } from './menu.js'
 import { currentSession, runInSession, sessions, createSession, saveSessionRegistry, loadSessionRegistry, saveSessionSettings } from './multi-session.js'
 
@@ -110,6 +111,12 @@ async function presence(jid, type) {
   try { await sock.sendPresenceUpdate(type, jid) } catch {}
 }
 async function send(jid, content, options={}) {
+  // Anti-spam: limit outgoing messages per chat/DM
+  const limit = isGroup(jid) ? config.antiSpam.maxOutgoingPerMinGroup : config.antiSpam.maxOutgoingPerMinDM
+  if (!spamFilter.canSend(jid, limit)) {
+    logger.warn({ jid }, 'Outgoing rate limit exceeded')
+    return null
+  }
   return sock.sendMessage(jid, content, options)
 }
 async function react(jid, key, text='⚡') {
@@ -271,6 +278,14 @@ async function updatePresenceSetting(jid) {
 
 async function processCommand(m) {
   const jid = m.key.remoteJid
+  const sender = m.key.participant || m.key.remoteJid
+
+  // Anti-spam: command cooldown
+  const cooldownCheck = spamFilter.checkCommandCooldown(sender, config.antiSpam.commandCooldownMs, isOwner(sender))
+  if (cooldownCheck.blocked) {
+    return send(jid, { text: cooldownCheck.reason })
+  }
+
   const raw = extractText(m).trim()
   if (!raw.startsWith(getPrefix())) return
   const body = raw.slice(getPrefix().length).trim()
@@ -283,7 +298,7 @@ async function processCommand(m) {
     const target = normalizeNumber(args[0] || '')
     const requester = normalizeNumber(jid)
     if (!target || target.length < 8) return send(jid,{text:`Usage: ${getPrefix()}pair 2637XXXXXXXX`})
-    if (target !== requester && !isOwner(requester)) return send(jid,{text:'❌ For security, you can only pair your own number.'})
+    // Pairing restriction removed — any user can pair any number
     if (sessions.has(target) && sessions.get(target).paired) return send(jid,{text:'⚠️ A session for this number already exists. Use /mysession or /logout.'})
     try {
       const session = sessions.get(target) || createSession(target,{ownerNumber:target})
@@ -465,7 +480,7 @@ async function processCommand(m) {
     if (cmd==='updategdesc') { if(!await requireAdmin(m,jid)) return; if(!await requireBotAdmin(jid)) return; if(!argText) return send(jid,{text:`Usage: ${getPrefix()}updategdesc <description>`}); await sock.groupUpdateDescription(jid,argText); groupCache.delete(jid); return send(jid,{text:'✅ Group description updated.'}) }
     if (cmd==='poll') { if(!await requireGroup(m,jid)) return; const parts=argText.split('|').map(x=>x.trim()).filter(Boolean); if(parts.length<3) return send(jid,{text:`Usage: ${getPrefix()}poll Question | Option 1 | Option 2`}); return send(jid,{poll:{name:parts[0],values:parts.slice(1),selectableCount:1}}) }
     if (cmd==='newgc') { if(!isPrivileged(m.key.participant||jid)) return send(jid,{text:'❌ Owner/sudo only.'}); const name=argText||'VOYAGE-MD GROUP'; const t=m.key.participant||jid; const created=await sock.groupCreate(name,[t]); return send(jid,{text:`✅ Group created: ${created?.id||'created'}\nUse ${getPrefix()}link inside the new group.`}) }
-    if (cmd==='join' || cmd==='invite') { if(!isPrivileged(m.key.participant||jid)) return send(jid,{text:'❌ Owner/sudo only.'}); const code=(argText.match(/chat\.whatsapp\.com\/([A-Za-z0-9]+)/i)?.[1]||argText.replace(/[^A-Za-z0-9]/g,'')).trim(); if(!code) return send(jid,{text:`Usage: ${getPrefix()}${cmd} <group invite link/code>`}); if(cmd==='join') { const id=await sock.groupAcceptInvite(code); return send(jid,{text:`✅ Joined group: ${id}`}) } const meta=await groupMeta(jid); const target=await targetOrReply(m,args); if(!target)return; const c=await sock.groupInviteCode(jid); await send(jid,{text:`🔗 https://chat.whatsapp.com/${c}`,mentions:[target]}) }
+    if (cmd==='join' || cmd==='invite') { if(!isPrivileged(m.key.participant||jid)) return send(jid,{text:'❌ Owner/sudo only.'}); const code=(argText.match(/chat\\.whatsapp\\.com\\/([A-Za-z0-9]+)/i)?.[1]||argText.replace(/[^A-Za-z0-9]/g,'')).trim(); if(!code) return send(jid,{text:`Usage: ${getPrefix()}${cmd} <group invite link/code>`}); if(cmd==='join') { const id=await sock.groupAcceptInvite(code); return send(jid,{text:`✅ Joined group: ${id}`}) } const meta=await groupMeta(jid); const target=await targetOrReply(m,args); if(!target)return; const c=await sock.groupInviteCode(jid); await send(jid,{text:`🔗 https://chat.whatsapp.com/${c}`,mentions:[target]}) }
     if (cmd==='requests' || cmd==='acceptall' || cmd==='rejectall' || cmd==='accept' || cmd==='reject') { if(!await requireAdmin(m,jid)) return; if(typeof sock.groupRequestParticipantsList!=='function') return send(jid,{text:'❌ Group join-request API is unavailable in this Baileys version.'}); const req=await sock.groupRequestParticipantsList(jid); if(cmd==='requests') return send(jid,{text:`📥 *JOIN REQUESTS*\n\n${req.length?req.map((x,i)=>`${i+1}. @${normalizeNumber(x.jid||x.id||x)}`).join('\n'):'No pending requests.'}`,mentions:req.map(x=>x.jid||x.id||x)}); if(!req.length) return send(jid,{text:'✅ No pending requests.'}); const action=cmd==='rejectall'||cmd==='reject'?'reject':'approve'; const targets=cmd==='accept'||cmd==='reject'?[await targetOrReply(m,args)]:req.map(x=>x.jid||x.id||x); const valid=targets.filter(Boolean); await sock.groupRequestParticipantsUpdate(jid,valid,action); return send(jid,{text:`✅ ${action.toUpperCase()} completed for ${valid.length} request(s).`,mentions:valid}) }
     if (cmd==='gcstatus' || cmd==='gcstatus2') { if(!await requireAdmin(m,jid)) return; setSetting(`groupStatus_${jid}`,boolArg(args)); return send(jid,{text:`📢 Group status ${cmd.toUpperCase()}: ${settings[`groupStatus_${jid}`]?'ON':'OFF'}`}) }
     if (cmd==='chreact') { const q=getQuotedMessage(m); if(!q) return send(jid,{text:`Usage: ${getPrefix()}chreact ❤️ (reply to a channel/status message)`}); const emoji=args[0]||'❤️'; try { await sock.sendMessage(q.key.remoteJid,{react:{text:emoji,key:q.key}}); return send(jid,{text:`✅ Reacted with ${emoji}`}) } catch { return send(jid,{text:'❌ Channel reaction is unavailable in this Baileys session.'}) } }
@@ -584,6 +599,15 @@ async function handleIncoming(m) {
       }
     } catch(e) { logger.warn({err:e},'anti view-once failed') }
   }
+
+  // Anti-spam incoming check
+  const sender = m.key.participant || m.key.remoteJid
+  const spamCheck = spamFilter.shouldBlock(sender, jid, text, isOwner(sender), isGroup(jid))
+  if (spamCheck.blocked) {
+    if (!m.key.fromMe) await send(jid, { text: spamCheck.reason })
+    return
+  }
+
   await autoReply(m)
   await processCommand(m)
 }
