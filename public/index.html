@@ -64,4 +64,661 @@ body::after{
 }
 
 /* ─── SPIDER WEB DECORATION ─── */
-.web
+.web-deco{
+  position:fixed;top:0;right:0;width:400px;height:400px;opacity:.06;pointer-events:none;z-index:-1;
+}
+.web-deco svg{width:100%;height:100%}
+
+/* ─── LAYOUT ─── */
+.wrap{width:min(1120px,94%);margin:auto;padding:18px 0 60px}
+
+/* ─── HEADER / SYSTEM STATUS ─── */
+.sys-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 0 22px;border-bottom:1px solid var(--border);
+  margin-bottom:22px;flex-wrap:wrap;gap:12px;
+}
+.brand-block{display:flex;align-items:center;gap:14px}
+.brand-icon{
+  width:44px;height:44px;border:1px solid var(--neon);
+  display:grid;place-items:center;font-size:22px;
+  position:relative;background:rgba(0,212,255,.05);
+  box-shadow:var(--glow);
+}
+.brand-icon::before,.brand-icon::after{
+  content:"";position:absolute;width:6px;height:6px;border:1px solid var(--neon);background:var(--bg);
+}
+.brand-icon::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.brand-icon::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.brand-text h1{
+  font-size:15px;letter-spacing:3px;color:#fff;font-weight:800;
+  text-shadow:0 0 10px rgba(0,212,255,.3);
+}
+.brand-text span{
+  display:block;font-size:11px;color:var(--text-label);letter-spacing:2px;margin-top:2px;
+}
+.sys-status{display:flex;gap:10px;flex-wrap:wrap}
+.sys-pill{
+  border:1px solid var(--border);background:rgba(0,212,255,.04);
+  padding:6px 12px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text-dim);font-family:var(--font-mono);position:relative;
+}
+.sys-pill::before{
+  content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--neon);opacity:.4;
+}
+.sys-pill.online{color:var(--neon);border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08)}
+.sys-pill.online::before{opacity:1;box-shadow:0 0 8px var(--neon)}
+.sys-pill.online::after{
+  content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--neon);margin-left:6px;box-shadow:0 0 8px var(--neon);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ─── MOBILE MENU ─── */
+.menu-btn{
+  display:none;background:none;border:1px solid var(--border);color:var(--neon);
+  padding:8px 12px;font-size:18px;cursor:pointer;
+}
+@media(max-width:640px){
+  .menu-btn{display:block}
+  .sys-status{width:100%;justify-content:flex-start;display:none}
+  .sys-status.open{display:flex}
+}
+
+/* ─── HERO ─── */
+.hero{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;
+  margin-bottom:28px;
+}
+.hero-terminal{
+  background:var(--bg-elev);border:1px solid var(--border);
+  padding:32px 28px;position:relative;
+  box-shadow:var(--glow);
+}
+.hero-terminal::before,.hero-terminal::after,
+.hero-terminal .corner-bl,.hero-terminal .corner-br{
+  content:"";position:absolute;width:18px;height:18px;border-color:var(--neon);border-style:solid;
+  pointer-events:none;
+}
+.hero-terminal::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.hero-terminal::after{top:-1px;right:-1px;border-width:2px 2px 0 0}
+.hero-terminal .corner-bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px}
+.hero-terminal .corner-br{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+
+.term-label{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:2.5px;
+  color:var(--neon);text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.term-label::before{
+  content:">>>";color:var(--neon);animation:blink 1.2s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-terminal h2{
+  font-size:clamp(28px,6vw,56px);line-height:.95;font-weight:900;
+  color:#fff;letter-spacing:-1px;
+  text-shadow:0 0 30px rgba(0,212,255,.25);
+}
+.hero-terminal h2 span{
+  display:block;font-size:.55em;letter-spacing:4px;color:var(--neon);
+  margin-top:8px;text-shadow:0 0 15px rgba(0,212,255,.4);
+}
+.hero-terminal .meta{
+  margin-top:18px;font-family:var(--font-mono);font-size:11px;
+  color:var(--text-label);line-height:1.8;letter-spacing:.5px;
+}
+.hero-terminal .meta strong{color:var(--text-dim)}
+.hero-terminal .meta .line{
+  display:block;padding-left:14px;position:relative;
+}
+.hero-terminal .meta .line::before{
+  content:">";position:absolute;left:0;color:var(--neon);opacity:.6;
+}
+
+.hero-art{
+  position:relative;border:1px solid var(--border);overflow:hidden;
+  min-height:320px;background:var(--bg-elev);
+  box-shadow:var(--glow);
+}
+.hero-art::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,212,255,.08),transparent 50%);
+  z-index:1;pointer-events:none;
+}
+.hero-art::after{
+  content:"";position:absolute;inset:0;
+  border:1px solid transparent;
+  background:linear-gradient(135deg,var(--neon-bright),transparent 40%) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:destination-out;mask-composite:exclude;
+  pointer-events:none;
+}
+.hero-art img{width:100%;height:100%;object-fit:cover;display:block;opacity:.9}
+
+/* ─── PAIRING TERMINAL ─── */
+.pair-hud{
+  background:var(--bg-elev);border:1px solid var(--border);
+  margin-bottom:24px;position:relative;
+  box-shadow:var(--glow);
+}
+.pair-hud::before,.pair-hud::after{
+  content:"";position:absolute;width:24px;height:24px;border-color:var(--neon);border-style:solid;
+}
+.pair-hud::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.pair-hud::after{top:-1px;right:-1px;border-width:2px 2px 0 0}
+.pair-hud .hud-bl,.pair-hud .hud-br{
+  position:absolute;width:24px;height:24px;border-color:var(--neon);border-style:solid;
+}
+.pair-hud .hud-bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px}
+.pair-hud .hud-br{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+
+.pair-header{
+  background:rgba(0,212,255,.04);border-bottom:1px solid var(--border);
+  padding:14px 22px;display:flex;justify-content:space-between;align-items:center;
+}
+.pair-title{font-size:13px;letter-spacing:3px;color:var(--neon);font-weight:700}
+.pair-sub{font-size:10px;color:var(--text-label);letter-spacing:1.5px;text-transform:uppercase}
+.pair-body{padding:22px}
+
+.pair-row{display:flex;gap:12px;align-items:stretch}
+.pair-input-wrap{
+  flex:1;position:relative;
+}
+.pair-input-wrap label{
+  position:absolute;top:-8px;left:12px;background:var(--bg-elev);
+  padding:0 6px;font-size:9px;letter-spacing:1.5px;color:var(--text-label);
+  text-transform:uppercase;font-family:var(--font-mono);
+}
+.pair-input-wrap input{
+  width:100%;background:transparent;border:1px solid var(--border);
+  color:#fff;padding:16px 14px;font-size:15px;font-family:var(--font-mono);
+  outline:none;transition:.2s;
+}
+.pair-input-wrap input:focus{border-color:var(--neon);box-shadow:inset 0 0 20px rgba(0,212,255,.06)}
+.pair-input-wrap input::placeholder{color:var(--text-dim);opacity:.5}
+
+.pair-btn{
+  background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,102,255,.1));
+  border:1px solid var(--neon);color:var(--neon);
+  padding:0 28px;font-size:12px;letter-spacing:2px;font-weight:800;
+  text-transform:uppercase;cursor:pointer;transition:.2s;
+  font-family:var(--font-main);white-space:nowrap;
+  position:relative;overflow:hidden;
+}
+.pair-btn::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(0,212,255,.2),transparent);
+  transform:translateX(-100%);transition:.5s;
+}
+.pair-btn:hover::before{transform:translateX(100%)}
+.pair-btn:hover{box-shadow:var(--glow-strong);text-shadow:0 0 8px var(--neon)}
+.pair-btn:disabled{opacity:.4;cursor:not-allowed;border-color:var(--text-dim);color:var(--text-dim)}
+
+.pair-status{
+  margin-top:16px;padding:12px 16px;border:1px solid rgba(0,212,255,.1);
+  background:rgba(0,212,255,.03);font-family:var(--font-mono);font-size:12px;
+  color:var(--text-dim);min-height:44px;display:flex;align-items:center;gap:10px;
+}
+.pair-status::before{content:"[STATUS]";color:var(--text-label);font-size:10px;letter-spacing:1px}
+
+.code-panel{
+  display:none;margin-top:16px;border:1px solid var(--neon-bright);
+  background:rgba(0,212,255,.06);padding:22px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.code-panel.show{display:block}
+.code-panel::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon),transparent);
+}
+.code-panel .code-label{
+  font-size:10px;letter-spacing:2px;color:var(--text-label);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.code-panel strong{
+  font-family:var(--font-mono);font-size:clamp(24px,5vw,36px);
+  letter-spacing:10px;color:var(--neon);text-shadow:0 0 20px rgba(0,212,255,.5);
+  display:block;
+}
+.code-panel .code-hint{
+  margin-top:10px;font-size:11px;color:var(--text-dim);letter-spacing:.5px;
+}
+
+/* ─── STATS HUD ─── */
+.stats-hud{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;
+}
+.stat-mod{
+  background:var(--bg-elev);border:1px solid var(--border);padding:20px 18px;
+  position:relative;transition:.2s;
+}
+.stat-mod:hover{border-color:var(--border-bright);box-shadow:var(--glow)}
+.stat-mod::before{
+  content:"";position:absolute;top:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:.3;
+}
+.stat-mod .stat-num{
+  font-size:28px;font-weight:900;color:#fff;
+  text-shadow:0 0 15px rgba(0,212,255,.2);font-family:var(--font-mono);
+}
+.stat-mod .stat-label{
+  font-size:9px;letter-spacing:2px;color:var(--text-label);
+  text-transform:uppercase;margin-top:6px;
+}
+.stat-mod .stat-bar{
+  margin-top:10px;height:2px;background:rgba(255,255,255,.05);overflow:hidden;
+}
+.stat-mod .stat-bar i{
+  display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--neon),var(--blue));
+  box-shadow:0 0 8px var(--neon);
+}
+
+/* ─── SECTION HEADER ─── */
+.sect-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin:36px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--border);
+  flex-wrap:wrap;gap:8px;
+}
+.sect-head h2{
+  font-size:14px;letter-spacing:3px;color:#fff;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+}
+.sect-head h2::before{
+  content:"";display:inline-block;width:4px;height:18px;background:var(--neon);
+  box-shadow:0 0 10px var(--neon);
+}
+.sect-head p{font-size:11px;color:var(--text-label);letter-spacing:1px;text-transform:uppercase}
+
+/* ─── COMMAND MODULES ─── */
+.modules{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+}
+.mod{
+  background:var(--bg-elev);border:1px solid var(--border);
+  position:relative;overflow:hidden;transition:.25s;
+  box-shadow:0 4px 30px rgba(0,0,0,.3);
+}
+.mod:hover{
+  border-color:var(--border-bright);
+  box-shadow:var(--glow),inset 0 0 40px rgba(0,212,255,.03);
+  transform:translateY(-2px);
+}
+.mod::before{
+  content:"";position:absolute;top:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,var(--neon),transparent 70%);opacity:.4;
+}
+.mod::after{
+  content:"";position:absolute;bottom:0;right:0;width:60%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon));opacity:.2;
+}
+.mod-corner{
+  position:absolute;width:14px;height:14px;border-color:var(--neon);border-style:solid;
+  opacity:.5;transition:.2s;
+}
+.mod:hover .mod-corner{opacity:1}
+.mod-tl{top:0;left:0;border-width:1px 0 0 1px}
+.mod-tr{top:0;right:0;border-width:1px 1px 0 0}
+.mod-bl{bottom:0;left:0;border-width:0 0 1px 1px}
+.mod-br{bottom:0;right:0;border-width:0 1px 1px 0}
+
+/* ─── MODULE IMAGE ─── */
+.mod-img{
+  width:100%;height:160px;overflow:hidden;border-bottom:1px solid var(--border);
+  position:relative;
+}
+.mod-img::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,var(--bg-elev));
+  pointer-events:none;
+}
+.mod-img img{
+  width:100%;height:100%;object-fit:cover;display:block;opacity:.85;
+  transition:.3s;
+}
+.mod:hover .mod-img img{
+  opacity:1;transform:scale(1.03);
+}
+
+.mod-header{
+  padding:18px 20px 10px;display:flex;justify-content:space-between;align-items:flex-start;
+  border-bottom:1px solid rgba(0,212,255,.06);
+}
+.mod-id{
+  font-family:var(--font-mono);font-size:11px;color:var(--neon);
+  letter-spacing:1px;opacity:.8;
+}
+.mod-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:.5px;margin-top:4px}
+.mod-body{padding:14px 20px 18px}
+.mod-desc{
+  font-size:12px;color:var(--text-dim);line-height:1.6;margin-bottom:14px;
+  border-left:2px solid rgba(0,212,255,.15);padding-left:10px;
+}
+.mod-cmds{display:flex;flex-wrap:wrap;gap:6px}
+.cmd-badge{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.5px;
+  color:var(--text);background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.12);
+  padding:5px 8px;border-radius:2px;transition:.15s;
+}
+.cmd-badge:hover{background:rgba(0,212,255,.14);border-color:rgba(0,212,255,.35);color:#fff}
+
+/* ─── FOOTER ─── */
+.footer{
+  margin-top:50px;padding-top:24px;border-top:1px solid var(--border);
+  text-align:center;font-size:10px;letter-spacing:2px;color:var(--text-label);
+  text-transform:uppercase;
+}
+.footer b{color:var(--text-dim)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-art{min-height:260px;order:-1}
+  .modules{grid-template-columns:1fr}
+  .stats-hud{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .wrap{width:96%;padding:12px 0 40px}
+  .sys-header{padding:10px 0 14px}
+  .brand-text h1{font-size:13px;letter-spacing:2px}
+  .hero-terminal{padding:22px 18px}
+  .hero-terminal h2{font-size:32px}
+  .hero-art{min-height:200px}
+  .pair-row{flex-direction:column}
+  .pair-btn{padding:16px;width:100%}
+  .pair-header{flex-direction:column;align-items:flex-start;gap:4px}
+  .stats-hud{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-mod{padding:16px 14px}
+  .stat-mod .stat-num{font-size:22px}
+  .sect-head h2{font-size:12px}
+  .mod-header{padding:14px 16px 8px}
+  .mod-body{padding:12px 16px 14px}
+  .mod-img{height:130px}
+  .code-panel strong{letter-spacing:6px;font-size:22px}
+}
+@media(max-width:380px){
+  .stats-hud{grid-template-columns:1fr}
+  .hero-terminal h2{font-size:26px}
+}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<div class="web-deco" aria-hidden="true">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(0,212,255,0.15)" fill="none" stroke-width="0.5">
+      <line x1="200" y1="0" x2="200" y2="400"/>
+      <line x1="0" y1="200" x2="400" y2="200"/>
+      <line x1="0" y1="0" x2="400" y2="400"/>
+      <line x1="400" y1="0" x2="0" y2="400"/>
+      <circle cx="200" cy="200" r="50"/>
+      <circle cx="200" cy="200" r="100"/>
+      <circle cx="200" cy="200" r="150"/>
+      <circle cx="200" cy="200" r="200"/>
+    </g>
+  </svg>
+</div>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="sys-header">
+    <div class="brand-block">
+      <div class="brand-icon">🕷️</div>
+      <div class="brand-text">
+        <h1>SPIDER VOYAGE</h1>
+        <span>VOYAGE-MD // DEV: BEN MAPS / LORD VOYAGE</span>
+      </div>
+    </div>
+    <button class="menu-btn" onclick="document.querySelector('.sys-status').classList.toggle('open')">☰</button>
+    <div class="sys-status">
+      <div class="sys-pill online">SYSTEM ONLINE</div>
+      <div class="sys-pill">STATUS: ACTIVE</div>
+      <div class="sys-pill">VERSION: 6.0.0</div>
+      <div class="sys-pill">BUILD: STABLE</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-terminal">
+      <div class="corner-bl" aria-hidden="true"></div>
+      <div class="corner-br" aria-hidden="true"></div>
+      <div class="term-label">SPIDER VOYAGE INC.</div>
+      <h2>VOYAGE-MD<span>WE CODE. WE AUTOMATE.</span></h2>
+      <div class="meta">
+        <span class="line"><strong>DEV:</strong> BEN MAPS / LORD VOYAGE</span>
+        <span class="line"><strong>PREFIX:</strong> /</span>
+        <span class="line"><strong>MODE:</strong> MULTI-USER BAILEYS</span>
+        <span class="line"><strong>STATUS:</strong> COMMAND CENTER READY</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="assets/main.png" alt="Spider Voyage Command Center">
+    </div>
+  </section>
+
+  <!-- PAIRING TERMINAL -->
+  <section class="pair-hud">
+    <div class="hud-bl" aria-hidden="true"></div>
+    <div class="hud-br" aria-hidden="true"></div>
+    <div class="pair-header">
+      <div class="pair-title">LINK VOYAGE-MD</div>
+      <div class="pair-sub">SECURE WHATSAPP PAIRING PROTOCOL</div>
+    </div>
+    <div class="pair-body">
+      <div class="pair-row">
+        <div class="pair-input-wrap">
+          <label>WhatsApp Number</label>
+          <input id="phone" inputmode="numeric" placeholder="e.g. 263788114185">
+        </div>
+        <button class="pair-btn" id="pairBtn">INITIALIZE PAIRING</button>
+      </div>
+      <div class="pair-status" id="status">Ready for secure pairing request.</div>
+      <div class="code-panel" id="code">
+        <div class="code-label">Authentication Token</div>
+        <strong id="codeVal">----</strong>
+        <div class="code-hint">WhatsApp → Settings → Linked Devices → Link with phone number</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS HUD -->
+  <section class="stats-hud">
+    <div class="stat-mod">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Commands</div>
+      <div class="stat-bar"><i style="--w:92%"></i></div>
+    </div>
+    <div class="stat-mod">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Departments</div>
+      <div class="stat-bar"><i style="--w:78%"></i></div>
+    </div>
+    <div class="stat-mod">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Uptime</div>
+      <div class="stat-bar"><i style="--w:100%"></i></div>
+    </div>
+    <div class="stat-mod">
+      <div class="stat-num">v6.0</div>
+      <div class="stat-label">Spider Core</div>
+      <div class="stat-bar"><i style="--w:88%"></i></div>
+    </div>
+  </section>
+
+  <!-- COMMAND DEPARTMENTS -->
+  <div class="sect-head">
+    <h2>Command Departments</h2>
+    <p>Select a system module to view available commands</p>
+  </div>
+  <section class="modules">
+
+    <article class="mod">
+      <div class="mod-corner mod-tl"></div><div class="mod-corner mod-tr"></div>
+      <div class="mod-corner mod-bl"></div><div class="mod-corner mod-br"></div>
+      <div class="mod-img"><img src="assets/media.png" alt="Media Center"></div>
+      <div class="mod-header">
+        <div>
+          <div class="mod-id">[01]</div>
+          <div class="mod-title">MEDIA CENTER</div>
+        </div>
+      </div>
+      <div class="mod-body">
+        <div class="mod-desc">Media discovery, social downloads and content helpers.</div>
+        <div class="mod-cmds">
+          <span class="cmd-badge">/play</span>
+          <span class="cmd-badge">/youtube</span>
+          <span class="cmd-badge">/video</span>
+          <span class="cmd-badge">/tiktok</span>
+          <span class="cmd-badge">/instagram</span>
+          <span class="cmd-badge">/fb</span>
+          <span class="cmd-badge">/twitter</span>
+          <span class="cmd-badge">/spotify</span>
+          <span class="cmd-badge">/lyrics</span>
+          <span class="cmd-badge">/playlist</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod">
+      <div class="mod-corner mod-tl"></div><div class="mod-corner mod-tr"></div>
+      <div class="mod-corner mod-bl"></div><div class="mod-corner mod-br"></div>
+      <div class="mod-img"><img src="assets/audio.png" alt="Audio Lab"></div>
+      <div class="mod-header">
+        <div>
+          <div class="mod-id">[02]</div>
+          <div class="mod-title">AUDIO LAB</div>
+        </div>
+      </div>
+      <div class="mod-body">
+        <div class="mod-desc">Audio playback and editing tools with a dedicated visual menu.</div>
+        <div class="mod-cmds">
+          <span class="cmd-badge">/song</span>
+          <span class="cmd-badge">/artist</span>
+          <span class="cmd-badge">/album</span>
+          <span class="cmd-badge">/ringtone</span>
+          <span class="cmd-badge">/speed</span>
+          <span class="cmd-badge">/bass</span>
+          <span class="cmd-badge">/equalizer</span>
+          <span class="cmd-badge">/trim</span>
+          <span class="cmd-badge">/merge</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod">
+      <div class="mod-corner mod-tl"></div><div class="mod-corner mod-tr"></div>
+      <div class="mod-corner mod-bl"></div><div class="mod-corner mod-br"></div>
+      <div class="mod-img"><img src="assets/intelligence.png" alt="Intelligence Core"></div>
+      <div class="mod-header">
+        <div>
+          <div class="mod-id">[03]</div>
+          <div class="mod-title">INTELLIGENCE CORE</div>
+        </div>
+      </div>
+      <div class="mod-body">
+        <div class="mod-desc">AI, language, OCR, coding and reasoning tools.</div>
+        <div class="mod-cmds">
+          <span class="cmd-badge">/ai</span>
+          <span class="cmd-badge">/deepseek</span>
+          <span class="cmd-badge">/teach</span>
+          <span class="cmd-badge">/chatbot</span>
+          <span class="cmd-badge">/imagine</span>
+          <span class="cmd-badge">/ocr</span>
+          <span class="cmd-badge">/translate</span>
+          <span class="cmd-badge">/tts</span>
+          <span class="cmd-badge">/code</span>
+          <span class="cmd-badge">/summarize</span>
+          <span class="cmd-badge">/reason</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod">
+      <div class="mod-corner mod-tl"></div><div class="mod-corner mod-tr"></div>
+      <div class="mod-corner mod-bl"></div><div class="mod-corner mod-br"></div>
+      <div class="mod-img"><img src="assets/utility.png" alt="Utility Tools"></div>
+      <div class="mod-header">
+        <div>
+          <div class="mod-id">[04]</div>
+          <div class="mod-title">UTILITY TOOLS</div>
+        </div>
+      </div>
+      <div class="mod-body">
+        <div class="mod-desc">Fast everyday utilities and information helpers.</div>
+        <div class="mod-cmds">
+          <span class="cmd-badge">/qr</span>
+          <span class="cmd-badge">/short</span>
+          <span class="cmd-badge">/toimg</span>
+          <span class="cmd-badge">/reverse</span>
+          <span class="cmd-badge">/time</span>
+          <span class="cmd-badge">/date</span>
+          <span class="cmd-badge">/ipinfo</span>
+          <span class="cmd-badge">/ping</span>
+          <span class="cmd-badge">/calc</span>
+          <span class="cmd-badge">/convert</span>
+          <span class="cmd-badge">/encode</span>
+          <span class="cmd-badge">/decode</span>
+          <span class="cmd-badge">/clear</span>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <footer class="footer">
+    SPIDER VOYAGE INC. • <b>DEV: BEN MAPS / LORD VOYAGE</b> • COMMAND CENTER v6.0.0
+  </footer>
+
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const status = $('status');
+
+$('pairBtn').onclick = async () => {
+  const phone = $('phone').value.replace(/\D/g, '');
+  if (phone.length < 7) {
+    status.textContent = 'Invalid number format. Enter a valid international number.';
+    status.style.color = '#ff4d4d';
+    return;
+  }
+  const b = $('pairBtn');
+  b.disabled = true;
+  b.textContent = 'INITIALIZING...';
+  status.textContent = 'Connecting to Spider Voyage pairing node...';
+  status.style.color = 'var(--text-dim)';
+  $('code').classList.remove('show');
+  try {
+    const r = await fetch('/pair', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone })
+    });
+    const d = await r.json();
+    if (d.success && d.code) {
+      $('codeVal').textContent = d.code;
+      $('code').classList.add('show');
+      status.textContent = 'Pairing code generated successfully.';
+      status.style.color = 'var(--neon)';
+    } else {
+      status.textContent = (d.error || 'Unable to generate pairing code.');
+      status.style.color = '#ff4d4d';
+    }
+  } catch (e) {
+    status.textContent = 'Server connection failed. Ensure the bot is running and try again.';
+    status.style.color = '#ff4d4d';
+  } finally {
+    b.disabled = false;
+    b.textContent = 'INITIALIZE PAIRING';
+  }
+};
+
+$('phone').addEventListener('keydown', e => {
+  if (e.key === 'Enter') $('pairBtn').click();
+});
+</script>
+</body>
+</html>
