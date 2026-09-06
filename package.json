@@ -1,11 +1,11 @@
 {
   "name": "voyage-md",
   "version": "6.0.0",
-  "description": "VOYAGE-MD - Baileys WhatsApp bot for Pterodactyl",
+  "description": "VOYAGE-MD - Baileys WhatsApp bot with Web Dashboard",
   "type": "module",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=20"
@@ -14,7 +14,9 @@
     "@whiskeysockets/baileys": "6.7.24",
     "@hapi/boom": "^10.0.1",
     "axios": "^1.11.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.1",
+    "express": "^4.19.2",
     "pino": "^9.7.0",
     "qrcode-terminal": "^0.12.0"
   }
